@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 정리
 
-## Getting Started
-
-First, run the development server:
+## 1. 프로젝트에 세팅하기
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install @next/third-parties@latest
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+위의 형태로 설치한다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+전체에 적용하려면 루트 레이아웃에 적용시켜준다.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```js
+// app/layout
 
-## Learn More
+import { GoogleTagManager } from "@next/third-parties/google";
 
-To learn more about Next.js, take a look at the following resources:
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode,
+}) {
+  return (
+    <html lang="en">
+      <GoogleTagManager gtmId="GTM-XYZ" />
+      <body>{children}</body>
+    </html>
+  );
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+gtmId는 태그 매니저 가입 시 나오는 GTM-xxxxxx 형태의 id를 넣어주면 된다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 2. 구글 애널리틱스와 연결하기
 
-## Deploy on Vercel
+애널리틱스는 새 계정을 만들어준다.
+만약 이미 있다면 **관리 > 데이터 스트림 > 전체 > 웹 스트림 세부정보 > 측정 ID**를 통해서 ga의 id를 확인 가능하다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+태그 관리자로 돌아와서 **태그 > 새로 만들기 > 태그 구성 > GA 애널리틱스 > Google 태그 > 트리거 클릭 > All Pages 체크 > 이름 지정 >저장**을 누른다.  
+미리 보기 또는 제출을 통해서 해당 부분에 대해 적용을 시킨다.
