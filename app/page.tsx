@@ -10,7 +10,9 @@ export default function Home() {
   return (
     <div className="">
       <h2>nextjs - ga4</h2>
-      <button onClick={handleClick}>send event</button>
+      <button className="btn-ga" onClick={handleClick}>
+        send event
+      </button>
     </div>
   );
 }
